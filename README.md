@@ -31,8 +31,8 @@ Housifyr is a comprehensive platform for viewing, buying, and selling real estat
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mokshitgala15/Housifyr.git
-   cd Housifyr
+   git clone https://github.com/mokshitgala15/Housifyr-Realestate-Marketplace.git
+   cd Housifyr-Realestate-Marketplace
    ```
 
 2. **Install backend dependencies**
@@ -48,18 +48,19 @@ Housifyr is a comprehensive platform for viewing, buying, and selling real estat
    ```
 
 4. **Set up environment variables**
-   - Create a `.env` file in the `server` directory with necessary configuration (MongoDB URI, JWT secret, etc.)
+   - Create a `.env` file in the `server` directory with the necessary configuration (e.g., `MONGODB_URI`, `JWT_SECRET`, AWS credentials).
 
 5. **Run the development servers**
-   ```bash
-   # In one terminal
-   cd server
-   npm start
-
-   # In another terminal
-   cd client
-   npm start
-   ```
+   - Start the backend server:
+     ```bash
+     cd server
+     npm start
+     ```
+   - In a separate terminal, start the frontend development server:
+     ```bash
+     cd client
+     npm start
+     ```
 
 ## Usage
 
