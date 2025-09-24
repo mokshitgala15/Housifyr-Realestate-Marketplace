@@ -3,3 +3,7 @@ export const test = (req, res) => {
         message: 'Api route is working!',
      });
 };
+
+export const updateUser = (req,res, next) => {
+    if(req.user.id !== req.params.id) return next(errorHandler(401), )
+};
