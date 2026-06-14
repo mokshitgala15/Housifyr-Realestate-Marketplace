@@ -1,81 +1,81 @@
-# Housifyr - Real Estate Marketplace
+# Housifyr
 
-## Project Overview
+Housifyr is a MERN real estate app in progress. The current implementation includes user authentication, Google sign-in, protected profile access, profile updates, avatar uploads through Firebase Storage, account deletion, and sign out.
 
-Housifyr is a comprehensive platform for viewing, buying, and selling real estate properties. It serves as a marketplace where users can explore property listings, connect with sellers, and facilitate real estate transactions smoothly and securely.
+## Tech Stack
 
-## Features
+- React + Vite
+- Redux Toolkit + Redux Persist
+- Tailwind CSS
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT auth with HTTP-only cookies
+- Firebase Auth and Storage
 
-- Browse property listings with advanced filters (location, price, property type, etc.)
-- User authentication and authorization
-- Add, edit, and manage property listings
-- Secure messaging between buyers and sellers
-- Favorites and saved properties
-- Responsive design for desktop and mobile devices
-- Robust search functionality
-- Admin dashboard for managing users and listings
+## Project Structure
 
-## Technologies Used
+- `api/` - Express API, MongoDB models, routes, controllers, and auth middleware
+- `client/` - Vite React frontend
 
-- React.js 
-- Node.js & Express.js
-- MongoDB & Mongoose
-- JWT Authentication
-- RESTful API architecture
-- Redux Toolkit for state management
-- Material-UI / Styled Components / Tailwind CSS
-- Git & GitHub for version control
-- AWS S3 for image uploads
+## Environment Variables
 
-## Installation & Setup
+Create a `.env` file in the project root:
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mokshitgala15/Housifyr-Realestate-Marketplace.git
-   cd Housifyr-Realestate-Marketplace
-   ```
+```bash
+MONGO=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
-2. **Install backend dependencies**
-   ```bash
-   cd server
-   npm install
-   ```
+Create a `.env` file in `client/`:
 
-3. **Install frontend dependencies**
-   ```bash
-   cd ../client
-   npm install
-   ```
+```bash
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+```
 
-4. **Set up environment variables**
-   - Create a `.env` file in the `server` directory with the necessary configuration (e.g., `MONGODB_URI`, `JWT_SECRET`, AWS credentials).
+## Installation
 
-5. **Run the development servers**
-   - Start the backend server:
-     ```bash
-     cd server
-     npm start
-     ```
-   - In a separate terminal, start the frontend development server:
-     ```bash
-     cd client
-     npm start
-     ```
+Install backend dependencies from the project root:
 
-## Usage
+```bash
+npm install
+```
 
-- Register or log in to your account
-- Browse or search for real estate properties
-- Add your own property listings for sale
-- Contact sellers through the platform
-- Save favorite listings for later
+Install frontend dependencies:
 
-## Contribution Guidelines
+```bash
+cd client
+npm install
+```
 
-Contributions are welcome! Please follow these steps to contribute:
+## Development
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a pull request describing your changes
+Start the API from the project root:
+
+```bash
+npm run dev
+```
+
+Start the frontend from `client/`:
+
+```bash
+npm run dev
+```
+
+The Vite dev server proxies `/api` requests to `http://localhost:3000`.
+
+## Available Checks
+
+From `client/`:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Roadmap
+
+- Property listings with search and filters
+- Create, edit, and manage listings
+- Favorites or saved properties
+- Buyer and seller messaging
+- Admin tools
