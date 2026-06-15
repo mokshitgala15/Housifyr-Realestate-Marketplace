@@ -1,41 +1,9 @@
-import { Link } from 'react-router-dom';
-import { FaSearch, FaHome, FaKey, FaRegBuilding, FaMapMarkerAlt, FaBed, FaBath } from 'react-icons/fa';
-
-const featuredListings = [
-  {
-    id: 1,
-    name: 'Modern Family Home',
-    address: 'Beverly Hills, CA',
-    price: '$1,250,000',
-    type: 'For Sale',
-    beds: 4,
-    baths: 3,
-    image:
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    id: 2,
-    name: 'Cozy Downtown Apartment',
-    address: 'Austin, TX',
-    price: '$2,400 / mo',
-    type: 'For Rent',
-    beds: 2,
-    baths: 2,
-    image:
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
-  },
-  {
-    id: 3,
-    name: 'Luxury Beachfront Villa',
-    address: 'Miami, FL',
-    price: '$3,800,000',
-    type: 'For Sale',
-    beds: 5,
-    baths: 4,
-    image:
-      'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80',
-  },
-];
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaSearch, FaHome, FaKey, FaRegBuilding } from 'react-icons/fa';
+import { featuredListings } from '../data/listings';
+import ListingCard from '../components/ListingCard';
+import Footer from '../components/Footer';
 
 const stats = [
   { label: 'Properties Listed', value: '12,500+' },
@@ -49,20 +17,33 @@ const features = [
     icon: <FaHome className='text-3xl text-slate-700' />,
     title: 'Buy a Home',
     desc: 'Find your place with an immersive photo experience and listings that match your lifestyle.',
+    to: '/search?type=sale',
   },
   {
     icon: <FaKey className='text-3xl text-slate-700' />,
     title: 'Rent a Home',
     desc: 'Browse thousands of rentals and discover the perfect space to call home.',
+    to: '/search?type=rent',
   },
   {
     icon: <FaRegBuilding className='text-3xl text-slate-700' />,
     title: 'Sell a Home',
     desc: 'List your property and reach genuine buyers with the right tools and exposure.',
+    to: '/profile',
   },
 ];
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchTerm.trim()) params.set('searchTerm', searchTerm.trim());
+    navigate(`/search?${params.toString()}`);
+  };
+
   return (
     <div>
       {/* Hero section */}
@@ -85,10 +66,15 @@ export default function Home() {
             </p>
 
             {/* Search bar */}
-            <form className='bg-white p-2 rounded-lg flex items-center max-w-xl shadow-lg'>
+            <form
+              onSubmit={handleSearch}
+              className='bg-white p-2 rounded-lg flex items-center max-w-xl shadow-lg'
+            >
               <input
                 type='text'
                 placeholder='Search by city, address, or ZIP...'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className='bg-transparent focus:outline-none w-full px-3 text-slate-700'
               />
               <button
@@ -122,8 +108,9 @@ export default function Home() {
       <section className='max-w-6xl mx-auto px-4 py-16'>
         <div className='grid gap-6 sm:grid-cols-3'>
           {features.map((feature) => (
-            <div
+            <Link
               key={feature.title}
+              to={feature.to}
               className='bg-white rounded-xl shadow-md p-6 flex flex-col gap-3 hover:shadow-lg transition'
             >
               {feature.icon}
@@ -131,7 +118,7 @@ export default function Home() {
                 {feature.title}
               </h3>
               <p className='text-slate-600 text-sm'>{feature.desc}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -160,7 +147,7 @@ export default function Home() {
             </p>
           </div>
           <Link
-            to='/about'
+            to='/search'
             className='text-slate-700 font-semibold hover:underline whitespace-nowrap'
           >
             View all
@@ -169,41 +156,7 @@ export default function Home() {
 
         <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
           {featuredListings.map((listing) => (
-            <div
-              key={listing.id}
-              className='bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group'
-            >
-              <div className='relative'>
-                <img
-                  src={listing.image}
-                  alt={listing.name}
-                  className='h-52 w-full object-cover group-hover:scale-105 transition duration-300'
-                />
-                <span className='absolute top-3 left-3 bg-slate-700 text-white text-xs font-semibold px-3 py-1 rounded-full'>
-                  {listing.type}
-                </span>
-              </div>
-              <div className='p-4 flex flex-col gap-2'>
-                <h3 className='text-lg font-semibold text-slate-800 truncate'>
-                  {listing.name}
-                </h3>
-                <p className='flex items-center gap-1 text-slate-500 text-sm'>
-                  <FaMapMarkerAlt className='text-slate-400' />
-                  {listing.address}
-                </p>
-                <p className='text-slate-800 font-bold text-lg'>
-                  {listing.price}
-                </p>
-                <div className='flex gap-4 text-slate-600 text-sm border-t pt-3'>
-                  <span className='flex items-center gap-1'>
-                    <FaBed /> {listing.beds} Beds
-                  </span>
-                  <span className='flex items-center gap-1'>
-                    <FaBath /> {listing.baths} Baths
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ListingCard key={listing.id} listing={listing} />
           ))}
         </div>
       </section>
@@ -227,15 +180,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className='bg-slate-200 border-t'>
-        <div className='max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-2'>
-          <p className='font-bold text-slate-700'>Housifyr</p>
-          <p className='text-slate-500 text-sm'>
-            &copy; {new Date().getFullYear()} Housifyr. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

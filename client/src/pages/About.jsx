@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaHandshake, FaShieldAlt, FaUsers, FaLightbulb } from 'react-icons/fa';
+import Footer from '../components/Footer';
 
 const values = [
   {
@@ -172,6 +173,8 @@ export default function About() {
           </Link>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
