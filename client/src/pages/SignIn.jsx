@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
+import { apiRequest } from '../utils/api';
 
 export default function SignIn() {
   const [formData, setFormFata] = useState({});
@@ -19,7 +20,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('api/auth/signin',
+      const res = await apiRequest('/auth/signin',
         {
           method: 'POST',
           headers: {
