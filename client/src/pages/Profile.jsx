@@ -11,6 +11,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from '../redux/user/userSlice'
+import { apiRequest } from '../utils/api';
 
 export default function Profile() {
   const fileRef = useRef(null)
@@ -61,7 +62,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await apiRequest(`/user/update/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await apiRequest(`/user/delete/${currentUser._id}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -101,7 +102,7 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
-      await fetch('/api/auth/signout');
+      await apiRequest('/auth/signout');
       dispatch(signOutUserSuccess());
     } catch (error) {
       dispatch(updateUserFailure(error.message));
